@@ -1,0 +1,258 @@
+
+$defPam: 6px; //패딩 마진기본값
+
+$mhh: 50px + ($defPam*2); //메인헤더height값(이거 기준으로 로고이미지나 그런거 계산중 - 기본 상하좌우 패딩 6씩들어가서 12기준으로 계산)
+
+$logoMarkSize: $mhh - ($defPam*2); //로고이미지영역사이즈
+$logoImgSize: $logoMarkSize - ($defPam*2); //로고이미지 사이즈
+$sideImgSize: $logoImgSize - ($defPam*2); //사이드이미지 사이즈
+
+$sideItemH: $logoImgSize;
+
+
+$sideBarSize: 260px;
+
+//flex 정렬시키는애들 모아놓은곳
+.side-toggle, .logo-content, .side-content, .header-tools{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: $defPam;
+}
+
+.wrapper{
+    display: flex;
+}
+
+.side-area, .main-area{
+    height: 100vh;
+}
+
+.header-area{
+    height: $mhh;
+    padding: $defPam;
+}
+
+.side-area{
+    min-width: $sideBarSize;
+    max-width: $sideBarSize;
+    transition: all 0.2s;
+}
+
+.side-hide{
+    min-width: $mhh;
+    max-width: $mhh;
+    transition: all 0.2s;
+
+    .logo-content, .side-content, .side-content-toggle{
+        display: none;
+    }
+
+    .side-sub{
+        padding-left: 0;
+    }
+
+    &:hover{
+        min-width: $sideBarSize;
+        max-width: $sideBarSize;
+
+        .logo-content, .side-content, .side-content-toggle{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: $defPam;
+        }
+
+        .side-sub{
+            padding-left: $defPam*2;
+        }
+
+    }
+}
+
+.logo-area{
+    display: flex;
+    .logo-mark-area{
+        min-width: $logoMarkSize;
+        max-width: $logoMarkSize;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .logo-mark-radios{
+            width: $logoImgSize;
+            height: $logoImgSize;
+            border-radius: 70%;
+            overflow: hidden;
+            .logo-mark-img{
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}
+
+.main-area{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: #ccc;
+}
+
+.header{
+    background:white;
+    display: flex;
+}
+
+.nav{
+    display: flex;
+    width: 70%;
+    height: 100%;
+    padding: $defPam;
+    overflow: hidden;
+    .nav-item{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        white-space: nowrap;
+        margin-right: $defPam;
+        padding: $defPam;
+    }
+
+}
+
+.sidebar{
+    height: calc(100vh - 62px);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 10px;  /* 스크롤바의 너비 */
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    height: 30%; /* 스크롤바의 길이 */
+    background: #217af4; /* 스크롤바의 색상 */
+    border-radius: 10px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
+}
+
+
+.side-item{
+    .side-main, .side-sub-item{
+        height: $sideItemH;
+        display: flex;
+        align-items: center;
+        .side-mark-area{
+            min-width: $logoMarkSize;
+            max-width: $logoMarkSize;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .side-mark-radios{
+                width: $sideImgSize;
+                height: $sideImgSize;
+                border-radius: 70%;
+                overflow: hidden;
+                .side-mark-img{
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+
+        .side-content-toggle{
+                margin-left: auto;
+        }
+    }
+}
+
+.side-main{
+    padding: $defPam*4 $defPam;
+}
+
+.side-sub-item{
+    padding: $defPam;
+}
+
+.side-main{
+    &:hover{
+        cursor: pointer;
+        background-color: #D3D5D7;
+        transition: all 0.2s;
+    }
+}
+
+.side-sub{
+    display: none;
+    box-shadow: inset 0 0 10px gray;
+    padding-top: $defPam*2;
+    padding-bottom: $defPam*2;
+    transition: all 0.2s;
+    padding-left: $defPam*2;
+}
+
+.content-area{
+    padding: $defPam;
+}
+
+.footer-area{
+    margin-top: auto;
+    height: 25px;
+    background: orange;
+}
+
+.collapse{
+    display: none;
+}
+
+.show{
+    display: block;
+}
+
+.side-active{
+    border-right: 6px solid black;
+    background-color: #D3D5D7;
+}
+
+.header-tools{
+    margin-left: auto;
+    height: 100%;
+
+    .header-tools-item{
+        padding: $defPam;
+    }
+}
+
+.logout:hover{
+    animation: blink-effect 0.5s step-end infinite;
+}
+
+@keyframes blink-effect {
+    50% {
+        color: red;
+    }
+}
+
+.btn{
+    font-size: 20px;
+    padding:2px;
+    color: gray;
+}
+
+/*반응형 mixin으로 깔끔하게 사용하기*/
+@mixin small{
+    @media (max-width: 1190px){
+      @content;
+    }
+  }
+  
+  @include small{ 
+    
+  }
